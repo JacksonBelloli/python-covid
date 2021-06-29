@@ -1,6 +1,7 @@
 from flask import Flask
 import csv
 import json
+from app.controllers.controllerThread import Thread
 app = Flask(__name__)
 
 
@@ -73,7 +74,7 @@ class controllerAmrec:
     def __init__(self):
         print('init')
 
-    def get_data(self):
+    def filter_csv(self):
         with open(self.path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -84,4 +85,9 @@ class controllerAmrec:
                  for city in self.cities:
                      if int(row['city_ibge_code']) == city['cod']:
                          self.data.append(row)
+
+    def get_data(self):
+        thread = Thread(self.filter_csv)
+        thread.start()
+        thread.join()
         return json.dumps(self.data)
