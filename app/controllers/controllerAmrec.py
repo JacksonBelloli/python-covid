@@ -79,6 +79,8 @@ class controllerAmrec:
             for row in reader:
                  if row['city_ibge_code'] == '':
                      continue
+                 if row['state'] != 'SC':
+                     continue
                  for city in self.cities:
                      if int(row['city_ibge_code']) == city['cod']:
                          self.data.append(row)
