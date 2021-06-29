@@ -130,5 +130,5 @@ dmypy.json
 
 #aplication ignore
 .idea/
-app/file
+app/file/caso_full.csv
 
