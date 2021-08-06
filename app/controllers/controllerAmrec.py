@@ -79,11 +79,12 @@ class controllerAmrec:
 
 
     def get_data(self):
-        df = pd.read_csv(self.path, header=0)
+        with open(self.path, newline='') as csvfile:
+            df = pd.read_csv(csvfile, header=0)
 
-        for city in self.cities:
-            newdf = df[(df.city_ibge_code == city['cod'])]
-            self.data = pd.concat([self.data, newdf])
+            for city in self.cities:
+                newdf = df[(df.city_ibge_code == city['cod'])]
+                self.data = pd.concat([self.data, newdf])
 
         return self.data.to_json(orient='records')
         #return json.dumps(self.data)
