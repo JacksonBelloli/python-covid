@@ -24,5 +24,5 @@ class Data(threading.Thread):
             df = pd.read_csv(decompressedFile)
             with open('app/file/caso_full.csv', 'w', newline='') as csvfile:
                 newdf = df[(df.state == 'SC')]
-                newdf.to_csv(csvfile)
+                newdf.to_csv(csvfile, index=False)
             time.sleep(86400)
