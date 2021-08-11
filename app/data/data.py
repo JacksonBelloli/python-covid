@@ -1,9 +1,9 @@
 from urllib.request import urlopen, Request
 import gzip
 import io
-import csv
 import threading
 import time
+import pandas as pd
 
 
 class Data(threading.Thread):
@@ -21,9 +21,8 @@ class Data(threading.Thread):
             request = Request(self.url, headers=self.headers)
             response = urlopen(request)
             decompressedFile = io.TextIOWrapper(gzip.GzipFile(fileobj=response), encoding='utf-8')
-            reader = csv.reader(decompressedFile)
+            df = pd.read_csv(decompressedFile)
             with open('app/file/caso_full.csv', 'w', newline='') as csvfile:
-                writer = csv.writer(csvfile)
-                for row in reader:
-                    writer.writerow(row)
+                newdf = df[(df.state == 'SC')]
+                newdf.to_csv(csvfile, index=False)
             time.sleep(86400)
