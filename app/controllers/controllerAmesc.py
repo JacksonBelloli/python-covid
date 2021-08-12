@@ -82,7 +82,7 @@ class controllerAmesc:
         df = pd.read_csv(self.path, header=0)
 
         for city in self.cities:
-            newdf = df[(df.city == city['name']) & (df.date == yesterday)]
+            newdf = df[(df.city == city['name']) & (df.islast == True)]
             self.data = pd.concat([self.data, newdf])
         # self.data.to_csv('app/file/caso_teste.csv')
         return self.data.to_json(orient='records')

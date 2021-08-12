@@ -25,4 +25,4 @@ class Data(threading.Thread):
             with open('app/file/caso_full.csv', 'w', newline='') as csvfile:
                 newdf = df[(df.state == 'SC')]
                 newdf.to_csv(csvfile, index=False)
-            time.sleep(86400)
+            time.sleep(43200)
